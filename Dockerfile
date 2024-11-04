@@ -2,6 +2,7 @@ FROM golang:1.19-alpine3.17 as builder
 
 WORKDIR /src
 
+ARG REPOSITORY_OWNER=willfantom
 ARG EXPORTER_VERSION=
 RUN test -n "$EXPORTER_VERSION"
 
@@ -9,7 +10,7 @@ COPY ./go.mod ./go.mod
 RUN go mod download
 
 COPY . .
-RUN CGO_ENABLED=0 go build -ldflags "-X github.com/willfantom/overseerr-exporter/cmd.version=${EXPORTER_VERSION}" -o overseerr-exporter .
+RUN CGO_ENABLED=0 go build -ldflags "-X github.com/${REPOSITORY_OWNER}/overseerr-exporter/cmd.version=${EXPORTER_VERSION}" -o overseerr-exporter .
 
 
 FROM alpine:3.17
