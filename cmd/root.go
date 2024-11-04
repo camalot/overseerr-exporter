@@ -47,6 +47,7 @@ var RootCmd = &cobra.Command{
 		prometheus.MustRegister(collector.NewRequestCollector(overseerr, scrapeGenres, scrapeCompanies))
 		prometheus.MustRegister(collector.NewUserCollector(overseerr))
 		prometheus.MustRegister(collector.NewStatusCollector(overseerr))
+		prometheus.MustRegister(collector.NewJobCollector(overseerr))
 
 		handler := promhttp.Handler()
 		http.Handle(metricsPath, handler)
