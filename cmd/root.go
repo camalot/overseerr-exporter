@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/collectors"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -42,9 +43,10 @@ var RootCmd = &cobra.Command{
 		setOverseer()
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		prometheus.MustRegister(prometheus.NewBuildInfoCollector())
+		prometheus.MustRegister(collectors.NewBuildInfoCollector())
 		prometheus.MustRegister(collector.NewRequestCollector(overseerr, scrapeGenres, scrapeCompanies))
 		prometheus.MustRegister(collector.NewUserCollector(overseerr))
+		prometheus.MustRegister(collector.NewStatusCollector(overseerr))
 
 		handler := promhttp.Handler()
 		http.Handle(metricsPath, handler)
