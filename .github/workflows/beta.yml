@@ -4,9 +4,13 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - "!main"
+      - "**" # All branches
+      - "!main" # Except main
+      - "!master" # Except master
+      - "!gh-pages" # Except gh-pages
+      - "!develop" # Except develop
     tags:
-      - "v*"
+      - "v*-beta.*"
     paths-ignore:
       - "README.md"
       - "example/**"
@@ -27,7 +31,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ github.token }}
       - name: Container Metadata
         id: metadata
         uses: docker/metadata-action@v4

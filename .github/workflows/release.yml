@@ -7,6 +7,7 @@ on:
       - "main"
     tags:
       - "v*"
+      - "!v*-beta.*"
     paths-ignore:
       - "README.md"
       - "example/**"
