@@ -48,6 +48,8 @@ var RootCmd = &cobra.Command{
 		prometheus.MustRegister(collector.NewUserCollector(overseerr))
 		prometheus.MustRegister(collector.NewStatusCollector(overseerr))
 		prometheus.MustRegister(collector.NewJobCollector(overseerr))
+		prometheus.MustRegister(collector.NewCacheCollector(overseerr))
+		prometheus.MustRegister(collector.NewSettingsCollector(overseerr))
 
 		handler := promhttp.Handler()
 		http.Handle(metricsPath, handler)
