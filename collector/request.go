@@ -41,7 +41,7 @@ func NewRequestCollector(client *goverseerr.Overseerr, doGenre, doCompany bool) 
 		Count: prometheus.NewDesc(
 			prometheus.BuildFQName(namespace, specificNamespace, "count"),
 			"Number of requests on Overseerr",
-			[]string{"media_type", "is_4k", "request_status", "media_status", "genre", "company"},
+			[]string{"url", "media_type", "is_4k", "request_status", "media_status", "genre", "company"},
 			nil,
 		),
 	}
@@ -98,7 +98,7 @@ func (rc *RequestCollector) Collect(ch chan<- prometheus.Metric) {
 			rc.Count,
 			prometheus.GaugeValue,
 			float64(count),
-			labelSet.MediaType, labelSet.UHD, labelSet.RequestStatus, labelSet.MediaStatus, labelSet.Genre, labelSet.Company,
+			rc.client.URL, labelSet.MediaType, labelSet.UHD, labelSet.RequestStatus, labelSet.MediaStatus, labelSet.Genre, labelSet.Company,
 		)
 	}
 

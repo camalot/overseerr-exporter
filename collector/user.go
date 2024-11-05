@@ -27,7 +27,7 @@ func NewUserCollector(client *goverseerr.Overseerr) *UserCollector {
 		Requests: prometheus.NewDesc(
 			prometheus.BuildFQName(namespace, specificNamespace, "requests"),
 			"Number of requests made by a user",
-			[]string{"email"},
+			[]string{"url", "email"},
 			nil,
 		),
 	}
@@ -64,7 +64,7 @@ func (rc *UserCollector) Collect(ch chan<- prometheus.Metric) {
 			rc.Requests,
 			prometheus.GaugeValue,
 			float64(user.RequestCount),
-			user.Email,
+			rc.client.URL, user.Email,
 		)
 	}
 
