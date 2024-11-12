@@ -8,8 +8,8 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
-	"github.com/willfantom/goverseerr"
-	"github.com/willfantom/overseerr-exporter/collector"
+	"github.com/camalot/goverseerr"
+	"github.com/camalot/overseerr-exporter/collector"
 )
 
 // persistent flags
@@ -50,6 +50,7 @@ var RootCmd = &cobra.Command{
 		prometheus.MustRegister(collector.NewJobCollector(overseerr))
 		// prometheus.MustRegister(collector.NewCacheCollector(overseerr))
 		prometheus.MustRegister(collector.NewSettingsCollector(overseerr))
+		prometheus.MustRegister(collector.NewIssueCollector(overseerr))
 
 		handler := promhttp.Handler()
 		http.Handle(metricsPath, handler)

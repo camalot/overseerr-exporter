@@ -5,7 +5,8 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/sirupsen/logrus"
-	"github.com/willfantom/goverseerr"
+	// "github.com/willfantom/goverseerr"
+	"github.com/camalot/goverseerr"
 )
 
 
