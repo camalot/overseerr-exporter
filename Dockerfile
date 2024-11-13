@@ -2,7 +2,7 @@ FROM golang:1.19-alpine3.17 as builder
 
 WORKDIR /src
 
-ARG REPOSITORY_OWNER=willfantom
+ARG REPOSITORY_OWNER=camalot
 ARG EXPORTER_VERSION=
 RUN test -n "$EXPORTER_VERSION"
 
@@ -17,6 +17,7 @@ FROM alpine:3.17
 
 RUN apk --no-cache add ca-certificates
 LABEL maintainer="Will Fantom <willf@ntom.dev>"
+LABEL maintainer="camalot"
 
 WORKDIR /exporter
 COPY --from=builder /src/overseerr-exporter .
